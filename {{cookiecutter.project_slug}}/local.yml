@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  node-modules:
+
+services:
+  django:
+    build:
+      context: ./backend/
+      dockerfile: ./compose/local/django/Dockerfile
+    image: {{cookiecutter.project_slug}}_local_django
+    container_name: backend
+    volumes:
+      - .:/app:z
+    ports:
+      - "8000:8000"
+    command: /start
+   
+  react:
+    build: ./frontend
+    image: {{cookiecutter.project_slug}}_local_react
+    container_name: frontend
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend:/app/frontend
+      # One-way volume to use node_modules from inside image
+      - node-modules:/app/frontend/node_modules
+    ports:
+      - "80:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - django
+    command: npm start
