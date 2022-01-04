@@ -1,6 +1,8 @@
 version: '3'
 
 volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
   node-modules:
 
 services:
@@ -9,17 +11,33 @@ services:
       context: ./backend/
       dockerfile: ./compose/local/django/Dockerfile
     image: {{cookiecutter.project_slug}}_local_django
-    container_name: backend
+    container_name: {{cookiecutter.project_slug}}_backend
     volumes:
       - .:/app:z
     ports:
       - "8000:8000"
+    env_file:
+      - ./.envs/.local/.postgres
+    depends_on:
+      - postgres
     command: /start
+
+  postgres:
+    build:
+      context: ./backend
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: {{cookiecutter.project_slug}}_local_postgres
+    container_name: {{cookiecutter.project_slug}}_database
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
    
   react:
     build: ./frontend
     image: {{cookiecutter.project_slug}}_local_react
-    container_name: frontend
+    container_name: {{cookiecutter.project_slug}}_frontend
     stdin_open: true
     tty: true
     volumes:

@@ -14,13 +14,14 @@ Versions of frameworks used to generate this project are:
  - Django - 4.0
  - React - 17.0.2
 
-Project aims to make starting Django + React project as easy as it can be.
+Database used is PostgreSQL 14.1.\
+Project aims to make starting Django + React project as easy as it can be.\
 Django REST Framework is used to convert Django project to REST API.
 
 ## Usage
-First, install cookiecutter:
-`$ pip install cookiecutter`
-Then run:
+First, install cookiecutter:\
+`$ pip install cookiecutter`\
+Then run:\
 `$ cookiecutter https://github.com/vipe1/Cookiecutter-Django-React`
 
 ## Developing locally
@@ -32,7 +33,7 @@ To start up the development server run:
 $ docker-compose -f local.yml build
 $ docker-compose -f local.yml up
 ```
-If you don't want to add `-f local.yml` every time you run commands set environmental variable: `COMPOSE_FILE=local.yml`
+If you don't want to add `-f local.yml` every time you run commands, you can set environmental variable: `COMPOSE_FILE=local.yml`\
 Then you can run compose like this:
 ```
 $ docker-compose build
