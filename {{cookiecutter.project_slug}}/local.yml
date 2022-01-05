@@ -1,9 +1,9 @@
 version: '3'
 
 volumes:
-  local_postgres_data: {}
-  local_postgres_data_backups: {}
-  node-modules:
+  {{cookiecutter.project_slug}}-local_postgres_data: {}
+  {{cookiecutter.project_slug}}-local_postgres_data_backups: {}
+  {{cookiecutter.project_slug}}-node-modules:
 
 services:
   django:
@@ -29,8 +29,8 @@ services:
     image: {{cookiecutter.project_slug}}_local_postgres
     container_name: {{cookiecutter.project_slug}}_database
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
+      - {{cookiecutter.project_slug}}-local_postgres_data:/var/lib/postgresql/data:Z
+      - {{cookiecutter.project_slug}}-local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
    
@@ -43,7 +43,7 @@ services:
     volumes:
       - ./frontend:/app/frontend
       # One-way volume to use node_modules from inside image
-      - node-modules:/app/frontend/node_modules
+      - {{cookiecutter.project_slug}}-node-modules:/app/frontend/node_modules
     ports:
       - "80:3000"
     environment:
