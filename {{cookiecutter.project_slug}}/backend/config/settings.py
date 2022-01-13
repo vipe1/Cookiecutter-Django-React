@@ -32,19 +32,30 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    '{{cookiecutter.project_slug}}.users'
 ]
+
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'corsheaders',
+]
+
+LOCAL_APPS = [
+    '{{cookiecutter.project_slug}}.users',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Keep it here, don't move it
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,3 +134,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS Headers
+# https://github.com/adamchainz/django-cors-headers
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]

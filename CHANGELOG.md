@@ -1,5 +1,21 @@
 # Change Log
 
+## v 0.3.0
+**Added**
+- Added DRF
+- Added optional users example*
+- Created User Serializer
+- Configured CORS for Frontend
+- Moved whole CSS to `frontend/src/App.css`
+
+**Changed**
+- Splitted Apps in config for more clear and tidy look
+- Changed Frontend port for local development from 80 to 3000**
+- Moved local development part of README to LOCAL_DEVELOPMENT.MD
+
+**Users list view on Backend and users list display on Frontend*\
+***Frontend container should now refresh on every change when saved*
+
 ## v 0.2.1
 **Added**
 - Added environmental generating hook

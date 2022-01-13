@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+{% if cookiecutter.use_users_example == 'y' %}
+import { useState, useEffect } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+	const [items, setItems] = useState([])
+
+	useEffect(() => {
+		const fetchUsers = () => {
+			fetch('http://localhost:8000/api/users/', {mode: 'cors'})
+				.then(results => results.json())
+				.then(data => {
+					setItems(data)
+				}
+			)
+		}
+	
+		fetchUsers()
+
+	}, [])
+
+	return (
+		<div className='App'>
+			{items.map((item) => (
+				<User item={item} key={item.id}/>	
+			))}
+		</div>
+	)
 }
 
-export default App;
+const User = ({item}) => {
+	return (
+		<div className={'user'}>
+			<h2 className={item.is_staff ? 'staff' : null} title={item.date_joined}>
+				{item.username}
+			</h2>
+			<h3>{item.email}</h3>
+		</div>
+	)
+}
+{% else %}
+const App = () => {
+  return (
+    <div className='App'>
+      <h1>Hello!</h1>
+    </div>
+  )
+}
+{% endif %}
+
+export default App

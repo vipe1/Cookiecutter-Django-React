@@ -45,7 +45,7 @@ services:
       # One-way volume to use node_modules from inside image
       - {{cookiecutter.project_slug}}-node-modules:/app/frontend/node_modules
     ports:
-      - "80:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=development
     depends_on:

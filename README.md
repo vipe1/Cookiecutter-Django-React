@@ -4,7 +4,7 @@
 ## Table of contents:
 - [General info](#general-info)
 - [Usage](#usage)
-- [Developing locally](#developing-locally)
+- [Developing locally (redirect to separate file)](./LOCAL_DEVELOPMENT.md)
 - [Deployment (not yet available)](#deployment)
 - [Inspirations](#inspirations)
 
@@ -23,23 +23,6 @@ First, install cookiecutter:\
 `$ pip install cookiecutter`\
 Then run:\
 `$ cookiecutter https://github.com/vipe1/Cookiecutter-Django-React`
-
-## Developing locally
-Local development is powered by Docker.
-To start developing your project all you need to do is ensure that you have docker and docker-compose working on your machine
-
-To start up the development server run: 
-```
-$ docker-compose -f local.yml build
-$ docker-compose -f local.yml up
-```
-If you don't want to add `-f local.yml` every time you run commands, you can set environmental variable: `COMPOSE_FILE=local.yml`\
-Then you can run compose like this:
-```
-$ docker-compose build
-$ docker-compose up
-```
-
 
 ## Inspirations
 Project is inspired and partly based on:
