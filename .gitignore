@@ -153,3 +153,8 @@ cython_debug/
 
 # TODO file
 TODO
+
+# Folder with files for further use
+# or any other files that I may not necessarily need,
+# but I don't want to remove them 
+to_omit/

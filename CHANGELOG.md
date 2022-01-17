@@ -1,5 +1,15 @@
 # Change Log
 
+## v 0.3.1
+**Changed**
+- Restructurized URLs in `backend/config/urls.py`
+- Changed default api path from `api/` to `api/v1/`
+
+**Removed**
+- Removed users example*
+
+**I've decided that it's useless feature and thus removed it*
+
 ## v 0.3.0
 **Added**
 - Added DRF

@@ -18,17 +18,3 @@ body {
   color: white;
   text-align: center;
 }
-{%- if cookiecutter.use_users_example == 'y' %}
-
-.user {
-  width: 300px;
-  margin: 10px;
-
-  border: 2px solid #404040;
-  border-radius: 5px;
-}
-
-.staff {
-  color: gold;
-}
-{%- endif %}

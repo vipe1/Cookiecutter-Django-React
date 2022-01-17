@@ -16,7 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
-    path('admin/', admin.site.urls),{% if cookiecutter.use_users_example == 'y' %}
-    path('api/', include('{{cookiecutter.project_slug}}.users.urls')),{% endif %}
+# URLs for things like admin config, 3rd party apps, etc.
+main_urls = [
+    path('admin/', admin.site.urls),
 ]
+
+# URLs for project's apps
+apps_urls = [
+    path('api/v1/', include([
+        # Insert your apps' urls here like this:
+        # path('{relative_path}', include('{{cookiecutter.project_slug}}.{app_name}.urls')),
+    ])),
+]
+
+urlpatterns = main_urls + apps_urls
