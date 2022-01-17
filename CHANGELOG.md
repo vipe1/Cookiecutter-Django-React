@@ -1,4 +1,9 @@
 # Change Log
+## v 0.4.0
+**Added**
+- Implemented user authentication with JWT*
+
+**Used Djoser and djangorestframework Simple JWT*
 
 ## v 0.3.1
 **Changed**

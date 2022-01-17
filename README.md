@@ -4,6 +4,7 @@
 ## Table of contents:
 - [General info](#general-info)
 - [Usage](#usage)
+- [User authentication](#user-authentication)
 - [Developing locally (redirect to separate file)](./LOCAL_DEVELOPMENT.md)
 - [Deployment (not yet available)](#deployment)
 - [Inspirations](#inspirations)
@@ -23,6 +24,16 @@ First, install cookiecutter:\
 `$ pip install cookiecutter`\
 Then run:\
 `$ cookiecutter https://github.com/vipe1/Cookiecutter-Django-React`
+
+## User authentication
+User authentication uses JWT tokens.
+It is implemented with:
+- Djoser
+- djangorestframework Simple JWT
+
+Endpoints documentation:
+- [Base endpoints](https://djoser.readthedocs.io/en/latest/base_endpoints.html)
+- [JWT endpoints](https://djoser.readthedocs.io/en/latest/jwt_endpoints.html)
 
 ## Inspirations
 Project is inspired and partly based on:

@@ -18,7 +18,13 @@ from django.urls import path, include
 
 # URLs for things like admin config, 3rd party apps, etc.
 main_urls = [
+    # Admin
     path('admin/', admin.site.urls),
+    # Authentication
+    path('api/auth/', include([
+        path('', include('djoser.urls')),
+        path('', include('djoser.urls.jwt')),
+    ]))
 ]
 
 # URLs for project's apps
