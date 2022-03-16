@@ -36,5 +36,5 @@ Otherwise just delete parentheses like so `-f local.yml`.
 ## Creating Superuser
 To create superuser run:
 ```
-$ $ docker-compose (-f local.yml) run --rm django python manage.py createsuperuser
+$ docker-compose (-f local.yml) run --rm django python manage.py createsuperuser
 ```
