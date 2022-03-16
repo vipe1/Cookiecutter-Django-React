@@ -1,4 +1,22 @@
 # Change Log
+## v 1.0.0
+**Added**
+- Added production docker-compose config
+- Added auto-generated env credentials for production
+- Added whitenoise for serving Django static files in production
+
+**Changed**
+- Remade Dockerfiles for local development*
+- Restructurized Django settings and splitted them into `base/local/production` files
+- Changed path of Django admin panel to start with `api/` prefix
+- Renamed local volumes
+- Moved some of the env credentials to common folder
+
+**Removed**
+- Deleted some of the Django auto-generated comments in some files
+
+**I've spent time to understand the docker components of this project instead of mindlessly copying them from other projects. Currently local compose containers are using volumes to make hot reloading in both Django and React work correctly. Production compose is copying code into containers to close the whole inside and prevent from modyfing code while it runs in production.*
+
 ## v 0.4.0
 **Added**
 - Implemented user authentication with JWT*

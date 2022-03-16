@@ -1,0 +1,66 @@
+version: '3'
+
+volumes:
+  production_django_static: {}
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_node_modules:
+  production_traefik: {}
+
+services:
+  django:
+    build:
+      context: ./backend/
+      dockerfile: ./compose/production/django/Dockerfile
+    image: {{cookiecutter.project_slug}}_production_django
+    container_name: {{cookiecutter.project_slug}}_backend
+    volumes:
+      - production_django_static:/app/staticfiles
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.common/.postgres
+      - ./.envs/.production/.postgres
+    depends_on:
+      - postgres
+    command: /start
+
+  postgres:
+    build:
+      context: ./backend
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: {{cookiecutter.project_slug}}_production_postgres
+    container_name: {{cookiecutter.project_slug}}_database
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data:Z
+      - production_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.common/.postgres
+      - ./.envs/.production/.postgres
+   
+  react:
+    build: 
+      context: ./frontend
+      dockerfile: ./compose/production/react/Dockerfile
+    image: {{cookiecutter.project_slug}}_production_react
+    container_name: {{cookiecutter.project_slug}}_frontend
+    stdin_open: true
+    tty: true
+    volumes:
+      - production_node_modules:/app/node_modules
+    depends_on:
+      - django
+    command: serve -s -n build
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./backend/compose/production/traefik/Dockerfile
+    image: {{cookiecutter.project_slug}}_production_traefik
+    container_name: {{cookiecutter.project_slug}}_traefik
+    depends_on:
+      - django
+    volumes:
+      - production_traefik:/etc/traefik/acme:z
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443" 

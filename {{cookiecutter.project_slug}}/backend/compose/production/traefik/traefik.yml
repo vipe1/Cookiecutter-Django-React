@@ -1,0 +1,100 @@
+{% set is_www_domain = cookiecutter.domain.startswith('www.') -%}
+{% if is_www_domain -%}
+  {% set middleware_name = 'redirect-non-www-to-www' -%}
+  {% set stripped_domain = cookiecutter.domain|replace('www.', '', 1) -%}
+  {% set other_domain = stripped_domain -%}
+{% else -%}
+  {% set middleware_name = 'redirect-www-to-non-www' -%}
+  {% set stripped_domain = cookiecutter.domain -%}
+  {% set other_domain = 'www.' ~ stripped_domain -%}
+{% endif -%}
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    # http
+    address: ":80"
+    http:
+      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      redirections:
+        entryPoint:
+          to: web-secure
+
+  web-secure:
+    # https
+    address: ":443"
+
+certificatesResolvers:
+  letsencrypt:
+    # https://docs.traefik.io/master/https/acme/#lets-encrypt
+    acme:
+      email: "{{cookiecutter.email}}"
+      storage: /etc/traefik/acme/acme.json
+      # https://docs.traefik.io/master/https/acme/#httpchallenge
+      httpChallenge:
+        entryPoint: web
+
+http:
+  routers:
+    frontend-router:
+      rule: "HostRegexp(`{host:(?:www\\.)?{{stripped_domain}}}`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - {{ middleware_name }}
+      service: react
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+        domains:
+          - main: "{{cookiecutter.domain}}"
+            sans:
+              - "{{other_domain}}"
+
+    backend-router:
+      rule: "HostRegexp(`{host:(?:www\\.)?{{stripped_domain}}}`) && PathPrefix(`/api/`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+        - {{ middleware_name }}
+      service: django
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: "{{cookiecutter.domain}}"
+            sans:
+              - "{{other_domain}}"
+
+  middlewares:
+    csrf:
+      # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
+      # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
+      headers:
+        hostsProxyHeaders: ["X-CSRFToken"]
+    {{ middleware_name }}:
+      redirectRegex:
+        permanent: true
+        regex: "^https?://(?:www\\.)?(.+)"
+        {% if is_www_domain -%}
+        replacement: "https://www.${1}"
+        {% else -%}
+        replacement: "https://${1}"
+        {% endif %}
+
+  services:
+    react:
+      loadBalancer:
+        servers:
+          - url: http://react:3000
+    django:
+      loadBalancer:
+        servers:
+          - url: http://django:8000
+
+providers:
+  # https://docs.traefik.io/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true

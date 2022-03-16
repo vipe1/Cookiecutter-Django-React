@@ -1,0 +1,5 @@
+This file exists only to be deleted.
+It's tale is sad but it does make sense.
+Git skips empty directories,
+    so I created this file to include this directory in repo
+        and it's deleted when project is generated

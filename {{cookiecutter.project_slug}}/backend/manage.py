@@ -2,11 +2,12 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
 
 def main():
-    """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.production')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -17,6 +18,10 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+    # This allows easy placement of apps within the interior
+    # {{cookiecutter.project_slug}} directory.
+    current_path = Path(__file__).parent.resolve()
+    sys.path.append(str(current_path / "{{cookiecutter.project_slug}}"))
 
 if __name__ == '__main__':
     main()

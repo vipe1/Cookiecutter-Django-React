@@ -1,9 +1,9 @@
 version: '3'
 
 volumes:
-  {{cookiecutter.project_slug}}-local_postgres_data: {}
-  {{cookiecutter.project_slug}}-local_postgres_data_backups: {}
-  {{cookiecutter.project_slug}}-node-modules:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+  local_node_modules:
 
 services:
   django:
@@ -12,11 +12,16 @@ services:
       dockerfile: ./compose/local/django/Dockerfile
     image: {{cookiecutter.project_slug}}_local_django
     container_name: {{cookiecutter.project_slug}}_backend
-    volumes:
-      - .:/app:z
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/app
+      # Directories below will appear in /app but they will be empty 
+      - /app/compose/
+      - /app/requirements/
     env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.common/.postgres
       - ./.envs/.local/.postgres
     depends_on:
       - postgres
@@ -29,25 +34,25 @@ services:
     image: {{cookiecutter.project_slug}}_local_postgres
     container_name: {{cookiecutter.project_slug}}_database
     volumes:
-      - {{cookiecutter.project_slug}}-local_postgres_data:/var/lib/postgresql/data:Z
-      - {{cookiecutter.project_slug}}-local_postgres_data_backups:/backups:z
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
     env_file:
+      - ./.envs/.common/.postgres
       - ./.envs/.local/.postgres
    
   react:
-    build: ./frontend
+    build: 
+      context: ./frontend
+      dockerfile: ./compose/local/react/Dockerfile
     image: {{cookiecutter.project_slug}}_local_react
     container_name: {{cookiecutter.project_slug}}_frontend
     stdin_open: true
     tty: true
     volumes:
-      - ./frontend:/app/frontend
-      # One-way volume to use node_modules from inside image
-      - {{cookiecutter.project_slug}}-node-modules:/app/frontend/node_modules
+      - ./frontend:/app
+      - local_node_modules:/app/node_modules
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=development
     depends_on:
       - django
     command: npm start
