@@ -61,4 +61,7 @@ COPY ./compose/local/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
+# Notice - I'm not sure if its not unsafe, but apparently it works
+USER 1000
+
 ENTRYPOINT ["/entrypoint"]

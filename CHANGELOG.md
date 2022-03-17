@@ -1,4 +1,8 @@
 # Change Log
+## v 1.0.1
+**Changed**
+- Changed user in local django image
+
 ## v 1.0.0
 **Added**
 - Added production docker-compose config
