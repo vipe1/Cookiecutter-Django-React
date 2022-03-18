@@ -1,4 +1,11 @@
 # Change Log
+## v 1.0.2
+**Added**
+- Production django image now creates `static` directory so that whitenoise doesn't throw missing directory error
+
+**Changed**
+- Fixed wrong django STATICFILES directory path
+
 ## v 1.0.1
 **Changed**
 - Changed user in local django image

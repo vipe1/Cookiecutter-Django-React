@@ -70,6 +70,7 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
 # make directory for static files
+RUN mkdir -p static && chmod -R 777 static
 RUN mkdir -p staticfiles && chmod -R 777 staticfiles
 
 # copy application code to WORKDIR
