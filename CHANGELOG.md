@@ -1,4 +1,11 @@
 # Change Log
+## v 1.1.0
+**Added**
+- Added optional django email setup with mailhog for local development and mailjet for production 
+
+**Changed**
+- Changed psycopg2-binary package to psycopg2
+
 ## v 1.0.2
 **Added**
 - Production django image now creates `static` directory so that whitenoise doesn't throw missing directory error

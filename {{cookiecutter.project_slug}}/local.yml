@@ -56,3 +56,14 @@ services:
     depends_on:
       - django
     command: npm start
+
+{%- if cookiecutter.use_mailhog == "y" %}
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: {{cookiecutter.project_slug}}_mailhog
+    ports:
+      - "8025:8025"
+    depends_on:
+      - django
+{% endif %}

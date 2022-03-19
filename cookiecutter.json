@@ -2,6 +2,9 @@
 	"project_name": "My Awesome Project",
 	"project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
 	"email": "test@email.com",
+	"application_email": "test@email.com",
 	"domain": "example.com",
-	"timezone": "CET"
+	"timezone": "CET",
+	"use_mailhog": "y",
+	"use_mailjet": "y"
 }

@@ -148,3 +148,9 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
 # =============================================================
+
+
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = '{{cookiecutter.application_email}}'
+# =============================================================

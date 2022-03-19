@@ -1,6 +1,13 @@
 from .base import *
 from .base import env
+{% if cookiecutter.use_mailjet == "y" %}
+# ADDITIONAL APPS
+INSTALLED_APPS += [
+    'anymail', # Email integrating app
+]
+# =============================================================
 
+{% endif %}
 # SECURITY
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['{{cookiecutter.domain}}'])
 
@@ -28,3 +35,16 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 # STATIC
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # ============================================================
+
+{%- if cookiecutter.use_mailjet == "y" %}
+
+
+# EMAIL
+EMAIL_BACKEND = 'anymail.backends.mailjet.EmailBackend'
+
+ANYMAIL = {
+    'MAILJET_API_KEY': env('MAILJET_API_KEY'),
+    'MAILJET_SECRET_KEY': env('MAILJET_SECRET_KEY'),
+}
+# =============================================================
+{% endif %}

@@ -69,7 +69,7 @@ COPY --chown=django:django ./compose/production/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
-# make directory for static files
+# make directories for static files
 RUN mkdir -p static && chmod -R 777 static
 RUN mkdir -p staticfiles && chmod -R 777 staticfiles
 
