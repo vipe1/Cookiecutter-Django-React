@@ -11,7 +11,7 @@ services:
       context: ./backend/
       dockerfile: ./compose/local/django/Dockerfile
     image: {{cookiecutter.project_slug}}_local_django
-    container_name: {{cookiecutter.project_slug}}_backend
+    container_name: {{cookiecutter.project_slug}}_local_backend
     ports:
       - "8000:8000"
     volumes:
@@ -32,7 +32,7 @@ services:
       context: ./backend
       dockerfile: ./compose/production/postgres/Dockerfile
     image: {{cookiecutter.project_slug}}_local_postgres
-    container_name: {{cookiecutter.project_slug}}_database
+    container_name: {{cookiecutter.project_slug}}_local_database
     volumes:
       - local_postgres_data:/var/lib/postgresql/data:Z
       - local_postgres_data_backups:/backups:z
@@ -45,7 +45,7 @@ services:
       context: ./frontend
       dockerfile: ./compose/local/react/Dockerfile
     image: {{cookiecutter.project_slug}}_local_react
-    container_name: {{cookiecutter.project_slug}}_frontend
+    container_name: {{cookiecutter.project_slug}}_local_frontend
     stdin_open: true
     tty: true
     volumes:
@@ -61,7 +61,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog:v1.0.1
-    container_name: {{cookiecutter.project_slug}}_mailhog
+    container_name: {{cookiecutter.project_slug}}_local_mailhog
     ports:
       - "8025:8025"
     depends_on:

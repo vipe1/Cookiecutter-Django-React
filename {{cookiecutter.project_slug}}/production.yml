@@ -13,7 +13,7 @@ services:
       context: ./backend/
       dockerfile: ./compose/production/django/Dockerfile
     image: {{cookiecutter.project_slug}}_production_django
-    container_name: {{cookiecutter.project_slug}}_backend
+    container_name: {{cookiecutter.project_slug}}_production_backend
     volumes:
       - production_django_static:/app/staticfiles
     env_file:
@@ -29,7 +29,7 @@ services:
       context: ./backend
       dockerfile: ./compose/production/postgres/Dockerfile
     image: {{cookiecutter.project_slug}}_production_postgres
-    container_name: {{cookiecutter.project_slug}}_database
+    container_name: {{cookiecutter.project_slug}}_production_database
     volumes:
       - production_postgres_data:/var/lib/postgresql/data:Z
       - production_postgres_data_backups:/backups:z
@@ -42,7 +42,7 @@ services:
       context: ./frontend
       dockerfile: ./compose/production/react/Dockerfile
     image: {{cookiecutter.project_slug}}_production_react
-    container_name: {{cookiecutter.project_slug}}_frontend
+    container_name: {{cookiecutter.project_slug}}_production_frontend
     stdin_open: true
     tty: true
     volumes:
@@ -56,7 +56,7 @@ services:
       context: .
       dockerfile: ./backend/compose/production/traefik/Dockerfile
     image: {{cookiecutter.project_slug}}_production_traefik
-    container_name: {{cookiecutter.project_slug}}_traefik
+    container_name: {{cookiecutter.project_slug}}_production_traefik
     depends_on:
       - django
     volumes:

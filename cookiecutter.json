@@ -6,5 +6,15 @@
 	"domain": "example.com",
 	"timezone": "CET",
 	"use_mailhog": "y",
-	"use_mailjet": "y"
+	"email_provider": [
+		"none",
+		"mailgun",
+		"mailjet",
+		"mandrill",
+		"postal",
+		"postmark",
+		"sendgrid",
+		"sendinblue",
+		"sparkpost"
+	]
 }

@@ -2,6 +2,6 @@
 
 gunicorn>=20.1.0, <21.0
 
-{%- if cookiecutter.use_mailjet == "y" %}
-django-anymail[mailjet]>=8.5, <9.0
+{%- if cookiecutter.email_provider != "none" %}
+django-anymail[{{cookiecutter.email_provider}}]>=8.5, <9.0
 {% endif %}

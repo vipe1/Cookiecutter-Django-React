@@ -1,4 +1,14 @@
 # Change Log
+## v 1.1.1
+**Added**
+- Added missing production envs
+
+**Changed**
+- From now on for django production email setup you can choose from few providers supported by django-anymail*
+- Changed container names to distinct local containers from production containers
+
+**Note: I've only tested Mailjet setup, because there are too many options to choose from. I've decided to implement most of them (only excluding AWS SES) to make the setup easier, but you have to ensure on your own that it works for email provider of your choice.*
+
 ## v 1.1.0
 **Added**
 - Added optional django email setup with mailhog for local development and mailjet for production 
