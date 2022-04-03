@@ -14,7 +14,7 @@ ALLOWED_HOSTS = [
 ]
 # =============================================================
 
-{%- if cookiecutter.use_mailhog == "y" %}
+{%- if cookiecutter.use_mailhog == "yes" %}
 
 
 # EMAIL

@@ -1,4 +1,4 @@
 # General
 # ------------------------------------------------------------------------------
 DJANGO_SETTINGS_MODULE=config.settings.local
-DJANGO_ADMIN_URL=admin
+DJANGO_ADMIN_URL=admin/

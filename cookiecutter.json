@@ -5,7 +5,10 @@
 	"application_email": "test@email.com",
 	"domain": "example.com",
 	"timezone": "CET",
-	"use_mailhog": "y",
+	"use_mailhog": [
+		"no",
+		"yes"
+	],
 	"email_provider": [
 		"none",
 		"mailgun",

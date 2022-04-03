@@ -16,7 +16,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      # Directories below will appear in /app but they will be empty 
+      # Directories below will appear in /app but they will be empty
       - /app/compose/
       - /app/requirements/
     env_file:
@@ -39,9 +39,9 @@ services:
     env_file:
       - ./.envs/.common/.postgres
       - ./.envs/.local/.postgres
-   
+
   react:
-    build: 
+    build:
       context: ./frontend
       dockerfile: ./compose/local/react/Dockerfile
     image: {{cookiecutter.project_slug}}_local_react
@@ -57,7 +57,7 @@ services:
       - django
     command: npm start
 
-{%- if cookiecutter.use_mailhog == "y" %}
+{%- if cookiecutter.use_mailhog == "yes" %}
 
   mailhog:
     image: mailhog/mailhog:v1.0.1

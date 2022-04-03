@@ -7,27 +7,29 @@ DJANGO_SETTINGS_MODULE=config.settings.production
 # TIP: better off using DNS, however, redirect is OK too
 DJANGO_SECURE_SSL_REDIRECT=False
 DJANGO_ALLOWED_HOSTS={{cookiecutter.domain}}
+{%- if cookiecutter.email_provider != "none" %}
 
 # Email
 # ------------------------------------------------------------------------------
+{%- endif %}
 {%- if cookiecutter.email_provider == "mailgun" %}
 MAILGUN_API_KEY=
 MAILGUN_DOMAIN=
-{% elif cookiecutter.email_provider == "mailjet" %}
+{%- elif cookiecutter.email_provider == "mailjet" %}
 MAILJET_API_KEY=
 MAILJET_SECRET_KEY=
-{% elif cookiecutter.email_provider == "mandrill" %}
+{%- elif cookiecutter.email_provider == "mandrill" %}
 MANDRILL_API_KEY=
-{% elif cookiecutter.email_provider == "postal" %}
+{%- elif cookiecutter.email_provider == "postal" %}
 POSTAL_API_KEY=
-{% elif cookiecutter.email_provider == "postmark" %}
+{%- elif cookiecutter.email_provider == "postmark" %}
 POSTMARK_SERVER_TOKEN=
-{% elif cookiecutter.email_provider == "sendgrid" %}
+{%- elif cookiecutter.email_provider == "sendgrid" %}
 SENDGRID_API_KEY=
 SENDGRID_GENERATE_MESSAGE_ID=True
 SENDGRID_MERGE_FIELD_FORMAT=None
-{% elif cookiecutter.email_provider == "sendinblue" %}
+{%- elif cookiecutter.email_provider == "sendinblue" %}
 SENDINBLUE_API_KEY=
-{% elif cookiecutter.email_provider == "sparkpost" %}
+{%- elif cookiecutter.email_provider == "sparkpost" %}
 SPARKPOST_API_KEY=
-{% endif %}
+{%- endif %}
