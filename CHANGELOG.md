@@ -2,6 +2,7 @@
 ## v 1.2.0
 **Added**
 - Added .editorconfig file to normalize code style
+
 **Changed**
 - Switched true/false cookiecutter choices for 2-option yes/no choice*
 - Added missing slashes in admin URL's
