@@ -6,7 +6,7 @@
 - Switched true/false cookiecutter choices for 2-option yes/no choice*
 - Added missing slashes in admin URL's
 
-**This way I'dont have to worry about users typing yes or no in various ways*
+**This way I don't have to worry about users typing yes or no in various ways*
 
 ## v 1.1.1
 **Added**
